@@ -109,6 +109,7 @@ html {
     position: relative;
 }
 
+
 .nav-icon-5 {
     width: 40px;
     height: 32px;
@@ -390,6 +391,10 @@ html {
 
 nav ul li {
     list-style: none;
+}
+
+#mobile-nav .menu-link:hover {
+    color: var(--color-orange-theme);
 }
 
 .menu-link:hover {
@@ -915,7 +920,7 @@ nav ul li {
 }
 
 #controls button {
-    top: 220%;
+    top: 190%;
     position: absolute;
     color: var(--color-orange-theme);
     font-size: 2rem;
