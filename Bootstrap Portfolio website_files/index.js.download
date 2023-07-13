@@ -73,6 +73,19 @@ document.querySelector(".menu-icon").addEventListener("click", () => {
   }
 });
 
+function navToggle() {
+  navToggler.classList.toggle("active");
+  const nav = document.querySelector(".nav");
+  nav.classList.toggle("open");
+  if (nav.classList.contains("open")) {
+    console.log(nav);
+    console.log(nav.scrollHeight);
+    nav.style.height = nav.scrollHeight + "px";
+  } else {
+    nav.style.height = "";
+  }
+}
+
 function addElement(element, className, callback) {
   const doc = document.createElement(element);
   doc.classList.add(className);
@@ -250,6 +263,50 @@ function setResume(data) {
     const eduElement = edu.education;
     educationSection.insertAdjacentHTML("afterend", eduElement);
   });
+
+  timeoutTimer = setTimeout(() => {
+    //Text animation
+    function animateText(textElements) {
+      textElements.forEach((element) => {
+        const textSplit = element.textContent.split("");
+        element.textContent = "";
+        textSplit.forEach((letter) => {
+          element.innerHTML += '<span class="letter">' + letter + "</span>";
+        });
+        let currentLetter = 0;
+        const letterSpans = element.querySelectorAll(".letter");
+        const animationTimer = setInterval(() => {
+          letterSpans[currentLetter].classList.add("fade-in");
+          currentLetter++;
+          if (currentLetter === letterSpans.length) {
+            clearInterval(animationTimer);
+          }
+        }, 60);
+      });
+    }
+
+    const textElements = document.querySelectorAll(".animated-text");
+    animateText(textElements);
+
+    //progressBars animation
+    const progressBars = document.querySelectorAll(".progress-bar");
+
+    function animateProgress(bar) {
+      const maxProgress = parseInt(bar.dataset["progress"]);
+      let currProgress = parseInt(bar.getAttribute("value"));
+      const progressAnimationTimer = setInterval(() => {
+        if (currProgress >= maxProgress) {
+          clearInterval(progressAnimationTimer);
+        }
+        bar.value = currProgress;
+        currProgress += 0.5;
+      }, 5);
+    }
+    progressBars.forEach((bar) => {
+      bar.value = 0;
+      animateProgress(bar);
+    });
+  }, 800);
 }
 
 function getCV() {
